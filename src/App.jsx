@@ -1,7 +1,7 @@
 import { useMemo, useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { 
-  Heart, Music, MessageCircleHeart, Download
+  Heart, Music, MessageCircleHeart, ChevronLeft, ChevronRight
 } from 'lucide-react'
 
 export default function App() {
@@ -10,11 +10,35 @@ export default function App() {
   const autor = "— Para toda a eternidade, seu amor";
 
   const youtubeVideoId = "dWpGsK8Md28"
-  const fotoFixa = "/love.png"
+  
+  // Array de fotos para o carrossel
+  const fotos = [
+    "/love.png",
+    "/love2.png",
+  ];
+
+  const [fotoAtual, setFotoAtual] = useState(0);
 
   useEffect(() => {
     document.title = `Para ${nome} ❤️`
   }, [nome])
+
+  // Efeito para trocar automaticamente as fotos
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setFotoAtual((prev) => (prev + 1) % fotos.length);
+    }, 5000); // Troca a cada 5 segundos
+
+    return () => clearInterval(interval);
+  }, [fotos.length]);
+
+  const proximaFoto = () => {
+    setFotoAtual((prev) => (prev + 1) % fotos.length);
+  };
+
+  const fotoAnterior = () => {
+    setFotoAtual((prev) => (prev - 1 + fotos.length) % fotos.length);
+  };
 
   const hearts = useMemo(() =>
     Array.from({ length: 18 }).map((_, i) => ({
@@ -75,24 +99,64 @@ export default function App() {
                   <li>• Você me faz querer ser uma pessoa melhor</li>
                 </ul>
               </div>
-
-              <div className="flex flex-wrap items-center gap-2 pt-3 sm:pt-4">
-                <a
-                  className="inline-flex items-center gap-2 px-3 py-2 rounded-xl bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 transition text-xs sm:text-sm"
-                  href="https://emojikitchen.dev/heart"
-                  target="_blank"
-                  rel="noreferrer"
-                  title="Baixar figurinhas de coração"
-                >
-                  <Download className="w-3 h-3 sm:w-4 sm:h-4" />
-                  Figurinhas
-                </a>
-              </div>
             </div>
 
             <div className="lg:col-span-2">
               <div className="relative aspect-[3/4] sm:aspect-[4/5] rounded-xl sm:rounded-2xl overflow-hidden border border-zinc-200 dark:border-zinc-800 shadow-lg sm:shadow-xl">
-                <img src={fotoFixa} alt="Nossa foto" className="w-full h-full object-cover" />
+                {/* Carrossel de imagens */}
+                <div className="relative w-full h-full">
+                  {fotos.map((foto, index) => (
+                    <motion.img
+                      key={index}
+                      src={foto}
+                      alt={`Nossa foto ${index + 1}`}
+                      className="absolute w-full h-full object-cover"
+                      initial={{ opacity: 0 }}
+                      animate={{ 
+                        opacity: index === fotoAtual ? 1 : 0,
+                        scale: index === fotoAtual ? 1 : 1.05
+                      }}
+                      transition={{ duration: 0.5 }}
+                    />
+                  ))}
+                  
+                  {/* Botões de navegação */}
+                  {fotos.length > 1 && (
+                    <>
+                      <button
+                        onClick={fotoAnterior}
+                        className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-black/30 hover:bg-black/50 text-white rounded-full p-1 sm:p-2 transition-all"
+                        aria-label="Foto anterior"
+                      >
+                        <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
+                      </button>
+                      <button
+                        onClick={proximaFoto}
+                        className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-black/30 hover:bg-black/50 text-white rounded-full p-1 sm:p-2 transition-all"
+                        aria-label="Próxima foto"
+                      >
+                        <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
+                      </button>
+                      
+                      {/* Indicadores de slides */}
+                      <div className="absolute bottom-3 left-1/2 transform -translate-x-1/2 flex space-x-2">
+                        {fotos.map((_, index) => (
+                          <button
+                            key={index}
+                            onClick={() => setFotoAtual(index)}
+                            className={`w-2 h-2 rounded-full transition-all ${
+                              index === fotoAtual 
+                                ? 'bg-white' 
+                                : 'bg-white/50'
+                            }`}
+                            aria-label={`Ir para foto ${index + 1}`}
+                          />
+                        ))}
+                      </div>
+                    </>
+                  )}
+                </div>
+                
                 <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-black/50 to-transparent" />
                 <div className="absolute bottom-3 sm:bottom-4 left-3 sm:left-4 right-3 sm:right-4 text-white text-center">
                   <p className="text-sm sm:text-base md:text-lg font-semibold">Eu te amo, {nome.split(' ')[0]}!</p>
