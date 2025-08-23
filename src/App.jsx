@@ -1,0 +1,136 @@
+import { useMemo, useState, useEffect } from 'react'
+import { motion } from 'framer-motion'
+import { 
+  Heart, Music, MessageCircleHeart, Download
+} from 'lucide-react'
+
+export default function App() {
+  const nome = "meu amor";
+  const mensagem = "Em teus olhos encontrei meu lar,\nOnde posso sempre descansar.\nCada momento ao teu lado é especial,\nÉs a razão do meu bem-estar.";
+  const autor = "— Para toda a eternidade, seu amor";
+
+  const youtubeVideoId = "dWpGsK8Md28"
+  const fotoFixa = "/love.png"
+
+  useEffect(() => {
+    document.title = `Para ${nome} ❤️`
+  }, [nome])
+
+  const hearts = useMemo(() =>
+    Array.from({ length: 18 }).map((_, i) => ({
+      id: i,
+      left: Math.random() * 100,
+      delay: Math.random() * 4,
+      duration: 8 + Math.random() * 6,
+      scale: 0.6 + Math.random() * 1.4,
+      opacity: 0.3 + Math.random() * 0.7
+    })), [])
+
+  return (
+    <div className="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-rose-50 to-pink-50 dark:from-zinc-900 dark:to-zinc-800">
+      {/* Background com corações animados */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {hearts.map(h => (
+          <motion.div
+            key={h.id}
+            className="absolute text-rose-500/60 dark:text-rose-400/60"
+            initial={{ y: '110vh', x: `${h.left}vw`, scale: h.scale, opacity: 0 }}
+            animate={{ y: '-10vh', opacity: h.opacity }}
+            transition={{ delay: h.delay, duration: h.duration, repeat: Infinity, repeatType: 'mirror' }}
+          >
+            <Heart className="w-4 h-4 sm:w-6 sm:h-6 glow" />
+          </motion.div>
+        ))}
+      </div>
+
+      <main className="relative z-10 w-full max-w-3xl">
+        <section className="bg-white/80 dark:bg-zinc-900/70 backdrop-blur-xl rounded-2xl shadow-2xl p-4 sm:p-6 md:p-8 lg:p-10 border border-rose-100/40 dark:border-zinc-800">
+          <header className="flex items-center gap-3 mb-4 sm:mb-6">
+            <div className="p-2 sm:p-3 rounded-xl sm:rounded-2xl bg-rose-500 text-white glow heart-animation">
+              <MessageCircleHeart className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6" />
+            </div>
+            <h1 className="text-xl sm:text-2xl md:text-3xl font-bold tracking-tight">
+              Para <span className="text-rose-600 dark:text-rose-400">{nome}</span>
+            </h1>
+          </header>
+
+          <div className="flex flex-col lg:grid lg:grid-cols-5 gap-4 sm:gap-6">
+            <div className="lg:col-span-3 flex flex-col gap-3 sm:gap-4">
+              <motion.div
+                className="text-base sm:text-lg leading-relaxed text-zinc-700 dark:text-zinc-200 whitespace-pre-line"
+                initial={{ opacity: 0, y: 6 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+              >
+                "{mensagem}"
+              </motion.div>
+              <p className="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400">{autor}</p>
+
+              <div className="pt-3 sm:pt-4">
+                <h3 className="text-lg sm:text-xl font-semibold text-rose-700 dark:text-rose-300 mb-1 sm:mb-2">Te amo porque...</h3>
+                <ul className="text-zinc-600 dark:text-zinc-300 space-y-1 text-xs sm:text-sm">
+                  <li>• Você é a pessoa mais especial da minha vida</li>
+                  <li>• Seu sorriso ilumina meus dias</li>
+                  <li>• Seu abraço é meu lugar favorito</li>
+                  <li>• Você me faz querer ser uma pessoa melhor</li>
+                </ul>
+              </div>
+
+              <div className="flex flex-wrap items-center gap-2 pt-3 sm:pt-4">
+                <a
+                  className="inline-flex items-center gap-2 px-3 py-2 rounded-xl bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 transition text-xs sm:text-sm"
+                  href="https://emojikitchen.dev/heart"
+                  target="_blank"
+                  rel="noreferrer"
+                  title="Baixar figurinhas de coração"
+                >
+                  <Download className="w-3 h-3 sm:w-4 sm:h-4" />
+                  Figurinhas
+                </a>
+              </div>
+            </div>
+
+            <div className="lg:col-span-2">
+              <div className="relative aspect-[3/4] sm:aspect-[4/5] rounded-xl sm:rounded-2xl overflow-hidden border border-zinc-200 dark:border-zinc-800 shadow-lg sm:shadow-xl">
+                <img src={fotoFixa} alt="Nossa foto" className="w-full h-full object-cover" />
+                <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-black/50 to-transparent" />
+                <div className="absolute bottom-3 sm:bottom-4 left-3 sm:left-4 right-3 sm:right-4 text-white text-center">
+                  <p className="text-sm sm:text-base md:text-lg font-semibold">Eu te amo, {nome.split(' ')[0]}!</p>
+                  <p className="text-xs sm:text-sm">Para sempre e sempre</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Player do YouTube Fixo */}
+          <div className="mt-6 sm:mt-8 p-3 sm:p-4 bg-gradient-to-r from-rose-50 to-pink-50 dark:from-rose-900/20 dark:to-pink-900/20 rounded-xl sm:rounded-2xl border border-rose-200 dark:border-rose-800/50">
+            <div className="flex items-center gap-2 mb-3 sm:mb-4">
+              <Music className="w-4 h-4 sm:w-5 sm:h-5 text-rose-600 dark:text-rose-400" />
+              <span className="font-medium text-rose-700 dark:text-rose-300 text-sm sm:text-base">Nossa Música</span>
+            </div>
+            
+            <div className="aspect-video rounded-lg overflow-hidden">
+              <iframe
+                width="100%"
+                height="100%"
+                src={`https://www.youtube.com/embed/${youtubeVideoId}`}
+                title="YouTube video player"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                className="w-full h-full"
+              ></iframe>
+            </div>
+          </div>
+
+          {/* Mensagem final */}
+          <div className="mt-6 sm:mt-8 p-3 sm:p-4 bg-rose-50 dark:bg-rose-900/20 rounded-lg sm:rounded-xl text-center">
+            <p className="text-rose-700 dark:text-rose-200 font-medium text-sm sm:text-base">
+              Obrigado por existir em minha vida. Te amo mais do que palavras podem expressar. ❤️
+            </p>
+          </div>
+        </section>
+      </main>
+    </div>
+  )
+}
