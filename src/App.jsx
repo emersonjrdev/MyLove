@@ -1,7 +1,7 @@
 import { useMemo, useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { 
-  Heart, Music, MessageCircleHeart, ChevronLeft, ChevronRight
+  Heart, Music, MessageCircleHeart, ChevronLeft, ChevronRight, Calendar
 } from 'lucide-react'
 
 export default function App() {
@@ -17,11 +17,30 @@ export default function App() {
     "/love2.png",
   ];
 
+  // Data do início do namoro (14 de agosto de 2024)
+  const dataInicioNamoro = new Date(2025, 7, 14); // 14 de Agosto de 2025 - CORRETO
+  const [diasNamoro, setDiasNamoro] = useState(0);
+
   const [fotoAtual, setFotoAtual] = useState(0);
 
   useEffect(() => {
     document.title = `Para ${nome} ❤️`
-  }, [nome])
+    
+    // Calcula os dias de namoro
+   // Calcula os dias de namoro
+// Calcula os dias de namoro
+const calcularDiasNamoro = () => {
+  const hoje = new Date();
+  const diferenca = hoje.getTime() - dataInicioNamoro.getTime();
+  const dias = Math.floor(diferenca / (1000 * 60 * 60 * 24));
+  setDiasNamoro(dias);
+};
+    calcularDiasNamoro();
+    // Atualiza a cada dia (opcional)
+    const interval = setInterval(calcularDiasNamoro, 24 * 60 * 60 * 1000);
+    
+    return () => clearInterval(interval);
+  }, [nome]);
 
   // Efeito para trocar automaticamente as fotos
   useEffect(() => {
@@ -78,6 +97,22 @@ export default function App() {
             </h1>
           </header>
 
+          {/* Contador de dias de namoro */}
+          <div className="mb-4 sm:mb-6 p-3 sm:p-4 bg-rose-100 dark:bg-rose-900/30 rounded-xl text-center">
+            <div className="flex items-center justify-center gap-2 mb-2">
+              <Calendar className="w-4 h-4 sm:w-5 sm:h-5 text-rose-600 dark:text-rose-400" />
+              <span className="text-sm sm:text-base font-medium text-rose-700 dark:text-rose-300">
+                Nossa Jornada
+              </span>
+            </div>
+            <div className="text-2xl sm:text-3xl font-bold text-rose-600 dark:text-rose-400">
+              {diasNamoro} {diasNamoro === 1 ? 'dia' : 'dias'}
+            </div>
+            <p className="text-xs sm:text-sm text-rose-700/70 dark:text-rose-300/70 mt-1">
+              Desde 14 de Agosto de 2025
+            </p>
+          </div>
+
           <div className="flex flex-col lg:grid lg:grid-cols-5 gap-4 sm:gap-6">
             <div className="lg:col-span-3 flex flex-col gap-3 sm:gap-4">
               <motion.div
@@ -97,6 +132,7 @@ export default function App() {
                   <li>• Seu sorriso ilumina meus dias</li>
                   <li>• Seu abraço é meu lugar favorito</li>
                   <li>• Você me faz querer ser uma pessoa melhor</li>
+                  <li>• Cada dia ao seu lado é um presente</li>
                 </ul>
               </div>
             </div>
@@ -160,7 +196,7 @@ export default function App() {
                 <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-black/50 to-transparent" />
                 <div className="absolute bottom-3 sm:bottom-4 left-3 sm:left-4 right-3 sm:right-4 text-white text-center">
                   <p className="text-sm sm:text-base md:text-lg font-semibold">Eu te amo, {nome.split(' ')[0]}!</p>
-                  <p className="text-xs sm:text-sm">Para sempre e sempre</p>
+                  <p className="text-xs sm:text-sm">{diasNamoro} dias de felicidade</p>
                 </div>
               </div>
             </div>
@@ -190,7 +226,10 @@ export default function App() {
           {/* Mensagem final */}
           <div className="mt-6 sm:mt-8 p-3 sm:p-4 bg-rose-50 dark:bg-rose-900/20 rounded-lg sm:rounded-xl text-center">
             <p className="text-rose-700 dark:text-rose-200 font-medium text-sm sm:text-base">
-              Obrigado por existir em minha vida. Te amo mais do que palavras podem expressar. ❤️
+              Obrigado por existir em minha vida. Cada dia ao seu lado é um presente. ❤️
+            </p>
+            <p className="text-xs sm:text-sm text-rose-700/70 dark:text-rose-300/70 mt-2">
+              E contando... {diasNamoro} dias de pura felicidade!
             </p>
           </div>
         </section>
