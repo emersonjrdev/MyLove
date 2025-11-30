@@ -16,6 +16,10 @@ export default function App() {
   
   // Fotos padrão (fallback)
   const fotosPadrao = [
+    "/WhatsApp Image 2025-11-30 at 00.28.50 (1).jpeg",
+    "/WhatsApp Image 2025-11-30 at 00.28.50.jpeg",
+    "/WhatsApp Image 2025-11-30 at 00.28.51 (1).jpeg",
+    "/WhatsApp Image 2025-11-30 at 00.28.51.jpeg",
     "/love.png",
     "/love2.png",
   ];
