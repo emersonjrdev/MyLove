@@ -169,3 +169,4 @@ Compartilhe esse link com sua namorada! ❤️
 - Verifique se todas as imagens e vídeos estão carregando
 - Use um domínio personalizado se quiser (gratuito na Vercel/Netlify)
 
+
