@@ -24,38 +24,36 @@ body {
 
 @keyframes float {
   0%, 100% { 
-    transform: translateY(0) rotate(0deg); 
-  }
-  25% { 
-    transform: translateY(-15px) rotate(5deg); 
+    transform: translateY(0) translateZ(0); 
   }
   50% { 
-    transform: translateY(-25px) rotate(10deg); 
+    transform: translateY(-20px) translateZ(0); 
   }
-  75% { 
-    transform: translateY(-15px) rotate(5deg); 
+}
+
+@keyframes heart-float {
+  0% {
+    transform: translateY(110vh) translateZ(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-10vh) translateZ(0);
+    opacity: 0;
   }
 }
 
 .glow {
-  filter: drop-shadow(0 0 15px rgba(244, 63, 94, 0.9)) 
-          drop-shadow(0 0 30px rgba(244, 63, 94, 0.6))
-          drop-shadow(0 0 45px rgba(168, 85, 247, 0.4));
-  animation: pulse-glow 3s ease-in-out infinite;
+  filter: drop-shadow(0 0 10px rgba(244, 63, 94, 0.7)) 
+          drop-shadow(0 0 20px rgba(244, 63, 94, 0.4));
+  will-change: filter;
 }
 
-@keyframes pulse-glow {
-  0%, 100% {
-    filter: drop-shadow(0 0 15px rgba(244, 63, 94, 0.9)) 
-            drop-shadow(0 0 30px rgba(244, 63, 94, 0.6))
-            drop-shadow(0 0 45px rgba(168, 85, 247, 0.4));
-  }
-  50% {
-    filter: drop-shadow(0 0 25px rgba(244, 63, 94, 1)) 
-            drop-shadow(0 0 50px rgba(244, 63, 94, 0.8))
-            drop-shadow(0 0 75px rgba(168, 85, 247, 0.6));
-  }
-}
 
 .neon-pink {
   text-shadow: 
@@ -83,27 +81,14 @@ body {
 .holographic {
   background: linear-gradient(
     45deg,
-    rgba(244, 63, 94, 0.1),
-    rgba(168, 85, 247, 0.1),
-    rgba(59, 130, 246, 0.1),
-    rgba(244, 63, 94, 0.1)
+    rgba(244, 63, 94, 0.05),
+    rgba(168, 85, 247, 0.05),
+    rgba(244, 63, 94, 0.05)
   );
-  background-size: 400% 400%;
-  animation: holographic-shift 8s ease infinite;
+  background-size: 200% 200%;
+  animation: holographic-shift 20s ease infinite;
   position: relative;
-}
-
-.holographic::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    135deg,
-    transparent 30%,
-    rgba(255, 255, 255, 0.1) 50%,
-    transparent 70%
-  );
-  animation: holographic-sweep 3s ease-in-out infinite;
+  transform: translateZ(0);
 }
 
 @keyframes holographic-shift {
@@ -125,52 +110,62 @@ body {
 
 @keyframes particle-float {
   0% {
-    transform: translateY(100vh) translateX(0) scale(0);
+    transform: translateY(100vh) translateZ(0);
     opacity: 0;
   }
   10% {
-    opacity: 1;
+    opacity: 0.5;
   }
   90% {
-    opacity: 1;
+    opacity: 0.5;
   }
   100% {
-    transform: translateY(-100vh) translateX(100px) scale(1);
+    transform: translateY(-100vh) translateZ(0);
     opacity: 0;
   }
 }
 
 .glass-morphism {
   background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 
-    0 8px 32px 0 rgba(31, 38, 135, 0.37),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
+  transform: translateZ(0);
 }
 
 .glass-morphism-dark {
-  background: rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
   border: 1px solid rgba(244, 63, 94, 0.2);
-  box-shadow: 
-    0 8px 32px 0 rgba(244, 63, 94, 0.2),
-    inset 0 0 0 1px rgba(244, 63, 94, 0.1);
+  box-shadow: 0 8px 32px 0 rgba(244, 63, 94, 0.15);
+  transform: translateZ(0);
 }
 
 .cyber-grid {
   background-image: 
-    linear-gradient(rgba(244, 63, 94, 0.1) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(244, 63, 94, 0.1) 1px, transparent 1px);
-  background-size: 50px 50px;
-  animation: grid-move 20s linear infinite;
+    linear-gradient(rgba(244, 63, 94, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(244, 63, 94, 0.05) 1px, transparent 1px);
+  background-size: 100px 100px;
+  animation: grid-move 50s linear infinite;
+  transform: translateZ(0);
 }
 
 @keyframes grid-move {
   0% { background-position: 0 0; }
-  100% { background-position: 50px 50px; }
+  100% { background-position: 100px 100px; }
+}
+
+@keyframes star-twinkle {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(1) translateZ(0);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.2) translateZ(0);
+  }
 }
 
 .glow-border {
@@ -302,10 +297,11 @@ body {
   background-size: 200% auto;
 }
 
-/* Efeito de vidro fosco melhorado */
+/* Efeito de vidro fosco melhorado (otimizado) */
 .backdrop-blur-3xl {
-  backdrop-filter: blur(40px) saturate(180%);
-  -webkit-backdrop-filter: blur(40px) saturate(180%);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transform: translateZ(0);
 }
 
 /* Efeitos futuristas adicionais */
@@ -369,20 +365,18 @@ body {
 .floating-orb {
   position: absolute;
   border-radius: 50%;
-  filter: blur(40px);
-  opacity: 0.6;
-  animation: orb-float 15s ease-in-out infinite;
+  filter: blur(30px);
+  opacity: 0.4;
+  animation: orb-float 20s ease-in-out infinite;
+  transform: translateZ(0);
 }
 
 @keyframes orb-float {
   0%, 100% {
-    transform: translate(0, 0) scale(1);
+    transform: translate(0, 0) translateZ(0);
   }
-  33% {
-    transform: translate(30px, -30px) scale(1.1);
-  }
-  66% {
-    transform: translate(-30px, 30px) scale(0.9);
+  50% {
+    transform: translate(20px, -20px) translateZ(0);
   }
 }
 

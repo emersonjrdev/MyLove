@@ -121,46 +121,46 @@ export default function App() {
   };
 
   const hearts = useMemo(() =>
-    Array.from({ length: 25 }).map((_, i) => ({
+    Array.from({ length: 6 }).map((_, i) => ({
       id: i,
       left: Math.random() * 100,
       delay: Math.random() * 5,
-      duration: 10 + Math.random() * 8,
-      scale: 0.5 + Math.random() * 1.5,
-      opacity: 0.2 + Math.random() * 0.6
+      duration: 15 + Math.random() * 5,
+      scale: 0.5 + Math.random() * 1,
+      opacity: 0.2 + Math.random() * 0.4
     })), [])
 
   const stars = useMemo(() =>
-    Array.from({ length: 15 }).map((_, i) => ({
+    Array.from({ length: 5 }).map((_, i) => ({
       id: i,
       left: Math.random() * 100,
       top: Math.random() * 100,
       delay: Math.random() * 3,
-      duration: 3 + Math.random() * 2,
-      scale: 0.3 + Math.random() * 0.7
+      duration: 5 + Math.random() * 2,
+      scale: 0.3 + Math.random() * 0.5
     })), [])
 
-  // Partículas futuristas
+  // Partículas futuristas (mínimas para performance)
   const particles = useMemo(() =>
-    Array.from({ length: 50 }).map((_, i) => ({
+    Array.from({ length: 10 }).map((_, i) => ({
       id: i,
       left: Math.random() * 100,
       top: Math.random() * 100,
       delay: Math.random() * 5,
-      duration: 10 + Math.random() * 10,
-      size: 2 + Math.random() * 4,
-      color: ['#f43f5e', '#a855f7', '#3b82f6', '#ec4899'][Math.floor(Math.random() * 4)]
+      duration: 20 + Math.random() * 10,
+      size: 2 + Math.random() * 2,
+      color: ['#f43f5e', '#a855f7'][Math.floor(Math.random() * 2)]
     })), [])
 
-  // Orbs flutuantes
+  // Orbs flutuantes (mínimos)
   const orbs = useMemo(() =>
-    Array.from({ length: 3 }).map((_, i) => ({
+    Array.from({ length: 1 }).map((_, i) => ({
       id: i,
-      left: Math.random() * 100,
-      top: Math.random() * 100,
-      delay: Math.random() * 3,
-      size: 100 + Math.random() * 200,
-      color: ['#f43f5e', '#a855f7', '#3b82f6'][i]
+      left: 50,
+      top: 30,
+      delay: 0,
+      size: 200,
+      color: '#f43f5e'
     })), [])
 
   return (
@@ -169,9 +169,9 @@ export default function App() {
     }}>
       {/* Background futurista com gradiente animado */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {/* Orbs flutuantes coloridos */}
+        {/* Orbs flutuantes (simplificados) */}
         {orbs.map(orb => (
-          <motion.div
+          <div
             key={orb.id}
             className="floating-orb"
             style={{
@@ -179,18 +179,19 @@ export default function App() {
               top: `${orb.top}%`,
               width: `${orb.size}px`,
               height: `${orb.size}px`,
-              background: `radial-gradient(circle, ${orb.color}40, transparent)`,
-              animationDelay: `${orb.delay}s`
+              background: `radial-gradient(circle, ${orb.color}20, transparent)`,
+              animationDelay: `${orb.delay}s`,
+              transform: 'translateZ(0)'
             }}
           />
         ))}
 
-        {/* Grid cyberpunk */}
-        <div className="absolute inset-0 cyber-grid opacity-20" />
+        {/* Grid cyberpunk (desabilitado para performance) */}
+        {/* <div className="absolute inset-0 cyber-grid opacity-20" /> */}
 
-        {/* Partículas futuristas */}
+        {/* Partículas futuristas (mínimas) */}
         {particles.map(p => (
-          <motion.div
+          <div
             key={p.id}
             className="particle"
             style={{
@@ -198,78 +199,57 @@ export default function App() {
               top: `${p.top}%`,
               width: `${p.size}px`,
               height: `${p.size}px`,
-              background: `radial-gradient(circle, ${p.color}, transparent)`,
-              boxShadow: `0 0 ${p.size * 2}px ${p.color}`
-            }}
-            initial={{ opacity: 0 }}
-            animate={{ 
-              opacity: [0, 1, 1, 0],
-              y: [0, -100, -200],
-              x: [0, Math.random() * 50 - 25]
-            }}
-            transition={{ 
-              delay: p.delay, 
-              duration: p.duration, 
-              repeat: Infinity,
-              ease: "linear"
+              background: `${p.color}60`,
+              borderRadius: '50%',
+              position: 'absolute',
+              transform: 'translateZ(0)',
+              animation: `particle-float ${p.duration}s linear infinite`,
+              animationDelay: `${p.delay}s`,
+              opacity: 0
             }}
           />
         ))}
 
-        {/* Corações animados com efeito neon */}
+        {/* Corações animados (simplificados) */}
         {hearts.map(h => (
-          <motion.div
+          <div
             key={h.id}
             className="absolute"
-            initial={{ y: '110vh', x: `${h.left}vw`, scale: h.scale, opacity: 0, rotate: 0 }}
-            animate={{ 
-              y: '-10vh', 
-              opacity: h.opacity,
-              rotate: [0, 15, -15, 0]
-            }}
-            transition={{ 
-              delay: h.delay, 
-              duration: h.duration, 
-              repeat: Infinity, 
-              ease: "easeInOut"
+            style={{ 
+              left: `${h.left}vw`,
+              transform: 'translateZ(0)',
+              animation: `heart-float ${h.duration}s linear infinite`,
+              animationDelay: `${h.delay}s`,
+              opacity: h.opacity
             }}
           >
             <Heart 
-              className="w-4 h-4 sm:w-6 sm:h-6 glow" 
+              className="w-4 h-4 sm:w-6 sm:h-6" 
               fill="currentColor"
               style={{ color: '#f43f5e' }}
             />
-          </motion.div>
+          </div>
         ))}
         
-        {/* Estrelas cintilantes com brilho neon */}
+        {/* Estrelas cintilantes (simplificadas) */}
         {stars.map(s => (
-          <motion.div
+          <div
             key={s.id}
             className="absolute"
             style={{ 
               left: `${s.left}%`, 
               top: `${s.top}%`,
-              filter: 'drop-shadow(0 0 10px rgba(244, 63, 94, 0.8))'
-            }}
-            animate={{ 
-              opacity: [0.2, 1, 0.2],
-              scale: [s.scale, s.scale * 1.5, s.scale],
-              rotate: [0, 180, 360]
-            }}
-            transition={{ 
-              delay: s.delay, 
-              duration: s.duration, 
-              repeat: Infinity,
-              ease: "easeInOut"
+              transform: 'translateZ(0)',
+              animation: `star-twinkle ${s.duration}s ease-in-out infinite`,
+              animationDelay: `${s.delay}s`
             }}
           >
             <Star className="w-3 h-3 sm:w-4 sm:h-4" fill="#fbbf24" />
-          </motion.div>
+          </div>
         ))}
 
-        {/* Efeito de scan line */}
-        <div className="absolute inset-0 scan-line opacity-30" />
+        {/* Efeito de scan line (desabilitado para performance) */}
+        {/* <div className="absolute inset-0 scan-line opacity-30" /> */}
       </div>
 
       <main className="relative z-10 w-full max-w-5xl">
@@ -280,25 +260,9 @@ export default function App() {
           transition={{ duration: 0.7, ease: "easeOut" }}
           whileHover={{ scale: 1.01 }}
         >
-          {/* Efeitos holográficos e brilho futurista */}
-          <div className="absolute inset-0 holographic pointer-events-none" />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(244,63,94,0.2),transparent_60%)] pointer-events-none animate-pulse" />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(168,85,247,0.2),transparent_60%)] pointer-events-none animate-pulse" style={{ animationDelay: '1s' }} />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(59,130,246,0.15),transparent_60%)] pointer-events-none animate-pulse" style={{ animationDelay: '2s' }} />
-          
-          {/* Efeito de energia pulsante */}
-          <motion.div
-            className="absolute inset-0 pointer-events-none"
-            animate={{
-              background: [
-                'radial-gradient(circle at 50% 50%, rgba(244,63,94,0.1) 0%, transparent 70%)',
-                'radial-gradient(circle at 50% 50%, rgba(168,85,247,0.1) 0%, transparent 70%)',
-                'radial-gradient(circle at 50% 50%, rgba(59,130,246,0.1) 0%, transparent 70%)',
-                'radial-gradient(circle at 50% 50%, rgba(244,63,94,0.1) 0%, transparent 70%)'
-              ]
-            }}
-            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-          />
+          {/* Efeitos holográficos e brilho futurista (simplificados) */}
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(244,63,94,0.05),transparent_60%)] pointer-events-none" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(168,85,247,0.05),transparent_60%)] pointer-events-none" />
           
           <motion.header 
             className="flex items-center justify-between gap-3 mb-4 sm:mb-6 relative z-10"
@@ -324,12 +288,7 @@ export default function App() {
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.4 }}
                 >
-                  <motion.div
-                    animate={{ rotate: 360 }}
-                    transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
-                  >
-                    <Sparkles className="w-3 h-3 text-rose-400 glow" />
-                  </motion.div>
+                  <Sparkles className="w-3 h-3 text-rose-400" />
                   <span className="text-xs text-rose-400/80 neon-pink" style={{ fontSize: '0.7rem' }}>Feito com muito amor</span>
                 </motion.div>
               </div>
@@ -338,9 +297,9 @@ export default function App() {
             {/* Botão para gerenciar imagens futurista */}
             <motion.button
               onClick={() => setMostrarGerenciador(!mostrarGerenciador)}
-              className="p-2 sm:p-3 rounded-xl glass-morphism text-rose-400 hover:text-rose-300 transition-all shadow-md glow-border"
-              whileHover={{ scale: 1.1, rotate: 90 }}
-              whileTap={{ scale: 0.9 }}
+              className="p-2 sm:p-3 rounded-xl glass-morphism text-rose-400 hover:text-rose-300 transition-all shadow-md"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
               title="Gerenciar fotos"
             >
               <Settings className="w-4 h-4 sm:w-5 sm:h-5" />
@@ -351,7 +310,7 @@ export default function App() {
           <AnimatePresence>
             {mostrarGerenciador && (
               <motion.div
-                className="mb-4 sm:mb-6 p-4 sm:p-5 glass-morphism rounded-xl sm:rounded-2xl shadow-lg relative z-10 glow-border"
+                className="mb-4 sm:mb-6 p-4 sm:p-5 glass-morphism rounded-xl sm:rounded-2xl shadow-lg relative z-10"
                 initial={{ opacity: 0, height: 0 }}
                 animate={{ opacity: 1, height: 'auto' }}
                 exit={{ opacity: 0, height: 0 }}
@@ -377,7 +336,7 @@ export default function App() {
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
-                  <div className="flex items-center justify-center gap-2 p-4 glass-morphism rounded-xl border-2 border-dashed border-rose-500/50 cursor-pointer hover:border-rose-400 transition-colors glow-border">
+                  <div className="flex items-center justify-center gap-2 p-4 glass-morphism rounded-xl border-2 border-dashed border-rose-500/50 cursor-pointer hover:border-rose-400 transition-colors">
                     <Upload className="w-5 h-5 text-rose-400 glow" />
                     <span className="text-sm sm:text-base font-medium text-rose-300 neon-pink">
                       Adicionar fotos da galeria
@@ -400,11 +359,11 @@ export default function App() {
                     {fotosGaleria.map((foto, index) => (
                       <motion.div
                         key={index}
-                        className="relative aspect-square rounded-lg overflow-hidden border-2 border-rose-500/50 group glow-border"
+                        className="relative aspect-square rounded-lg overflow-hidden border-2 border-rose-500/50 group"
                         initial={{ opacity: 0, scale: 0.8 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ delay: index * 0.05 }}
-                        whileHover={{ scale: 1.05, zIndex: 10 }}
+                        whileHover={{ scale: 1.03 }}
                       >
                         <img
                           src={foto}
@@ -434,32 +393,19 @@ export default function App() {
 
           {/* Contador de dias de namoro futurista */}
           <motion.div 
-            className="mb-5 sm:mb-7 p-5 sm:p-6 glass-morphism rounded-2xl sm:rounded-3xl text-center shadow-xl relative overflow-hidden glow-border"
+            className="mb-5 sm:mb-7 p-5 sm:p-6 glass-morphism rounded-2xl sm:rounded-3xl text-center shadow-xl relative overflow-hidden"
             initial={{ opacity: 0, scale: 0.9, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             transition={{ delay: 0.3, duration: 0.6, type: "spring", stiffness: 100 }}
-            whileHover={{ scale: 1.02 }}
           >
-            {/* Efeitos de brilho animados futuristas */}
-            <div className="absolute inset-0 bg-gradient-to-r from-rose-500/30 via-pink-500/30 via-purple-500/30 to-blue-500/30 animate-pulse" />
-            <motion.div 
-              className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(244,63,94,0.3),transparent_70%)]"
-              animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.5, 0.3] }}
-              transition={{ duration: 3, repeat: Infinity }}
-            />
+            {/* Efeitos de brilho animados futuristas (otimizados) */}
+            <div className="absolute inset-0 bg-gradient-to-r from-rose-500/20 via-pink-500/20 via-purple-500/20 to-blue-500/20" />
             
             <div className="relative z-10">
               <div className="flex items-center justify-center gap-3 mb-3">
-                <motion.div
-                  animate={{ 
-                    rotate: [0, 15, -15, 0],
-                    scale: [1, 1.15, 1]
-                  }}
-                  transition={{ duration: 2.5, repeat: Infinity, repeatDelay: 2 }}
-                  className="p-2 bg-gradient-to-br from-rose-500 to-pink-600 rounded-xl shadow-lg glow"
-                >
+                <div className="p-2 bg-gradient-to-br from-rose-500 to-pink-600 rounded-xl shadow-lg">
                   <Calendar className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
-                </motion.div>
+                </div>
                 <span className="text-base sm:text-lg font-bold text-gradient-futuristic neon-pink">
                   Nossa Jornada de Amor
                 </span>
@@ -479,19 +425,9 @@ export default function App() {
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.6 }}
               >
-                <motion.div
-                  animate={{ scale: [1, 1.2, 1] }}
-                  transition={{ duration: 1.5, repeat: Infinity }}
-                >
-                  <Heart className="w-4 h-4 text-rose-500 glow" fill="currentColor" />
-                </motion.div>
-                Desde 14 de Agosto de 2025
-                <motion.div
-                  animate={{ scale: [1, 1.2, 1] }}
-                  transition={{ duration: 1.5, repeat: Infinity, delay: 0.75 }}
-                >
-                  <Heart className="w-4 h-4 text-rose-500 glow" fill="currentColor" />
-                </motion.div>
+                  <Heart className="w-4 h-4 text-rose-500" fill="currentColor" />
+                  Desde 14 de Agosto de 2025
+                  <Heart className="w-4 h-4 text-rose-500" fill="currentColor" />
               </motion.p>
             </div>
           </motion.div>
@@ -499,11 +435,10 @@ export default function App() {
           <div className="flex flex-col lg:grid lg:grid-cols-5 gap-4 sm:gap-6 relative z-10">
             <div className="lg:col-span-3 flex flex-col gap-3 sm:gap-4">
               <motion.div
-                className="text-base sm:text-lg md:text-xl leading-relaxed text-white whitespace-pre-line italic p-5 sm:p-6 glass-morphism rounded-2xl shadow-lg relative overflow-hidden glow-border"
+                className="text-base sm:text-lg md:text-xl leading-relaxed text-white whitespace-pre-line italic p-5 sm:p-6 glass-morphism rounded-2xl shadow-lg relative overflow-hidden"
                 initial={{ opacity: 0, x: -30 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.4, duration: 0.7, type: "spring" }}
-                whileHover={{ scale: 1.02 }}
               >
                 <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-rose-500/30 to-transparent rounded-bl-full" />
                 <div className="absolute inset-0 bg-gradient-to-r from-rose-500/10 via-transparent to-purple-500/10" />
@@ -527,12 +462,7 @@ export default function App() {
                 transition={{ delay: 0.5, duration: 0.5 }}
               >
                 <h3 className="text-lg sm:text-xl font-semibold text-gradient-futuristic neon-pink mb-3 sm:mb-4 flex items-center gap-2">
-                  <motion.div
-                    animate={{ rotate: [0, 20, -20, 0] }}
-                    transition={{ duration: 2, repeat: Infinity }}
-                  >
-                    <Heart className="w-5 h-5 text-rose-500 glow" fill="currentColor" />
-                  </motion.div>
+                <Heart className="w-5 h-5 text-rose-500" fill="currentColor" />
                   Te amo porque...
                 </h3>
                 <ul className="text-rose-100 space-y-2 text-sm sm:text-base">
@@ -551,12 +481,7 @@ export default function App() {
                       transition={{ delay: 0.6 + index * 0.1 }}
                       whileHover={{ x: 5 }}
                     >
-                      <motion.div
-                        animate={{ rotate: 360 }}
-                        transition={{ duration: 3, repeat: Infinity, ease: "linear", delay: index * 0.2 }}
-                      >
-                        <Star className="w-4 h-4 text-rose-400 mt-0.5 flex-shrink-0 glow" fill="currentColor" />
-                      </motion.div>
+                      <Star className="w-4 h-4 text-rose-400 mt-0.5 flex-shrink-0" fill="currentColor" />
                       <span>{item}</span>
                     </motion.li>
                   ))}
@@ -566,15 +491,13 @@ export default function App() {
 
             <div className="lg:col-span-2">
               <motion.div 
-                className="relative aspect-[3/4] sm:aspect-[4/5] rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl group glow-border"
-                initial={{ opacity: 0, scale: 0.85, rotateY: -10 }}
-                animate={{ opacity: 1, scale: 1, rotateY: 0 }}
+                className="relative aspect-[3/4] sm:aspect-[4/5] rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl group"
+                initial={{ opacity: 0, scale: 0.85 }}
+                animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.4, duration: 0.7, type: "spring" }}
-                whileHover={{ scale: 1.02, rotateY: 5 }}
                 style={{
-                  border: '2px solid',
-                  borderImage: 'linear-gradient(45deg, #f43f5e, #a855f7, #3b82f6, #f43f5e) 1',
-                  boxShadow: '0 0 30px rgba(244, 63, 94, 0.5), inset 0 0 30px rgba(244, 63, 94, 0.1)'
+                  border: '2px solid rgba(244, 63, 94, 0.4)',
+                  boxShadow: '0 0 20px rgba(244, 63, 94, 0.3)'
                 }}
               >
                 {/* Carrossel de imagens */}
@@ -618,19 +541,19 @@ export default function App() {
                     <>
                       <motion.button
                         onClick={fotoAnterior}
-                        className="absolute left-2 sm:left-3 top-1/2 transform -translate-y-1/2 glass-morphism hover:bg-rose-500/30 text-white rounded-full p-2 sm:p-2.5 transition-all shadow-lg z-20 glow"
+                        className="absolute left-2 sm:left-3 top-1/2 transform -translate-y-1/2 glass-morphism hover:bg-rose-500/30 text-white rounded-full p-2 sm:p-2.5 transition-all shadow-lg z-20"
                         aria-label="Foto anterior"
-                        whileHover={{ scale: 1.1, rotate: -15 }}
-                        whileTap={{ scale: 0.9 }}
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
                       >
                         <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
                       </motion.button>
                       <motion.button
                         onClick={proximaFoto}
-                        className="absolute right-2 sm:right-3 top-1/2 transform -translate-y-1/2 glass-morphism hover:bg-rose-500/30 text-white rounded-full p-2 sm:p-2.5 transition-all shadow-lg z-20 glow"
+                        className="absolute right-2 sm:right-3 top-1/2 transform -translate-y-1/2 glass-morphism hover:bg-rose-500/30 text-white rounded-full p-2 sm:p-2.5 transition-all shadow-lg z-20"
                         aria-label="Próxima foto"
-                        whileHover={{ scale: 1.1, rotate: 15 }}
-                        whileTap={{ scale: 0.9 }}
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
                       >
                         <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
                       </motion.button>
@@ -659,20 +582,8 @@ export default function App() {
                   )}
                 </div>
                 
-                {/* Overlay com gradiente futurista */}
+                {/* Overlay com gradiente futurista (otimizado) */}
                 <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
-                <motion.div
-                  className="absolute inset-0 pointer-events-none"
-                  animate={{
-                    background: [
-                      'radial-gradient(circle at 50% 50%, rgba(244,63,94,0.2) 0%, transparent 70%)',
-                      'radial-gradient(circle at 50% 50%, rgba(168,85,247,0.2) 0%, transparent 70%)',
-                      'radial-gradient(circle at 50% 50%, rgba(59,130,246,0.2) 0%, transparent 70%)',
-                      'radial-gradient(circle at 50% 50%, rgba(244,63,94,0.2) 0%, transparent 70%)'
-                    ]
-                  }}
-                  transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-                />
                 
                 {/* Texto sobre a imagem futurista */}
                 <motion.div 
@@ -694,38 +605,19 @@ export default function App() {
 
           {/* Player de Vídeo Local Futurista */}
           <motion.div 
-            className="mt-6 sm:mt-8 p-4 sm:p-5 glass-morphism-dark rounded-2xl sm:rounded-3xl shadow-2xl relative overflow-hidden glow-border"
+            className="mt-6 sm:mt-8 p-4 sm:p-5 glass-morphism-dark rounded-2xl sm:rounded-3xl shadow-2xl relative overflow-hidden"
             initial={{ opacity: 0, y: 20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ delay: 0.7, duration: 0.6 }}
-            whileHover={{ scale: 1.01 }}
           >
-            {/* Efeito de brilho animado futurista */}
-            <motion.div 
-              className="absolute inset-0"
-              animate={{
-                background: [
-                  'radial-gradient(circle at 50% 50%, rgba(244,63,94,0.2) 0%, transparent 70%)',
-                  'radial-gradient(circle at 50% 50%, rgba(168,85,247,0.2) 0%, transparent 70%)',
-                  'radial-gradient(circle at 50% 50%, rgba(59,130,246,0.2) 0%, transparent 70%)',
-                  'radial-gradient(circle at 50% 50%, rgba(244,63,94,0.2) 0%, transparent 70%)'
-                ]
-              }}
-              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-            />
+            {/* Efeito de brilho animado futurista (otimizado) */}
+            <div className="absolute inset-0 bg-gradient-to-r from-rose-500/10 via-purple-500/10 to-blue-500/10 pointer-events-none" />
             
             <div className="relative z-10">
               <div className="flex items-center justify-center gap-3 mb-4 sm:mb-5">
-                <motion.div
-                  animate={{ 
-                    rotate: [0, -15, 15, 0],
-                    scale: [1, 1.1, 1]
-                  }}
-                  transition={{ duration: 3, repeat: Infinity, repeatDelay: 1 }}
-                  className="p-2 bg-gradient-to-br from-rose-500 to-pink-600 rounded-xl shadow-lg glow"
-                >
+                <div className="p-2 bg-gradient-to-br from-rose-500 to-pink-600 rounded-xl shadow-lg">
                   <Music className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
-                </motion.div>
+                </div>
                 <div className="text-center">
                   <h3 className="font-bold text-lg sm:text-xl md:text-2xl text-gradient-futuristic neon-pink">
                     Nossa Música Especial
@@ -736,10 +628,9 @@ export default function App() {
                 </div>
               </div>
               
-              <div className="relative aspect-video rounded-xl sm:rounded-2xl overflow-hidden shadow-2xl group glow-border" style={{
-                border: '2px solid',
-                borderImage: 'linear-gradient(45deg, #f43f5e, #a855f7, #3b82f6) 1',
-                boxShadow: '0 0 30px rgba(244, 63, 94, 0.5)'
+              <div className="relative aspect-video rounded-xl sm:rounded-2xl overflow-hidden shadow-2xl group" style={{
+                border: '2px solid rgba(244, 63, 94, 0.4)',
+                boxShadow: '0 0 20px rgba(244, 63, 94, 0.3)'
               }}>
                 <video
                   ref={videoRef}
@@ -758,20 +649,8 @@ export default function App() {
                   Seu navegador não suporta vídeos HTML5.
                 </video>
                 
-                {/* Overlay decorativo futurista */}
+                {/* Overlay decorativo futurista (otimizado) */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity" />
-                <motion.div
-                  className="absolute inset-0 pointer-events-none"
-                  animate={{
-                    background: [
-                      'radial-gradient(circle at 50% 50%, rgba(244,63,94,0.1) 0%, transparent 70%)',
-                      'radial-gradient(circle at 50% 50%, rgba(168,85,247,0.1) 0%, transparent 70%)',
-                      'radial-gradient(circle at 50% 50%, rgba(59,130,246,0.1) 0%, transparent 70%)',
-                      'radial-gradient(circle at 50% 50%, rgba(244,63,94,0.1) 0%, transparent 70%)'
-                    ]
-                  }}
-                  transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                />
                 
                 {/* Indicador de som futurista */}
                 {videoTocando && (
@@ -781,12 +660,7 @@ export default function App() {
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0, scale: 0.8 }}
                   >
-                    <motion.div
-                      animate={{ rotate: 360 }}
-                      transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-                    >
-                      <Music className="w-3 h-3 sm:w-4 sm:h-4" />
-                    </motion.div>
+                    <Music className="w-3 h-3 sm:w-4 sm:h-4" />
                     <span>Tocando</span>
                   </motion.div>
                 )}
@@ -796,23 +670,12 @@ export default function App() {
 
           {/* Mensagem final futurista */}
           <motion.div 
-            className="mt-6 sm:mt-8 p-4 sm:p-5 glass-morphism rounded-xl sm:rounded-2xl text-center shadow-lg relative overflow-hidden glow-border"
+            className="mt-6 sm:mt-8 p-4 sm:p-5 glass-morphism rounded-xl sm:rounded-2xl text-center shadow-lg relative overflow-hidden"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.8, duration: 0.5 }}
-            whileHover={{ scale: 1.02 }}
           >
-            <motion.div 
-              className="absolute inset-0"
-              animate={{
-                background: [
-                  'radial-gradient(circle at 50% 50%, rgba(244,63,94,0.15) 0%, transparent 70%)',
-                  'radial-gradient(circle at 50% 50%, rgba(168,85,247,0.15) 0%, transparent 70%)',
-                  'radial-gradient(circle at 50% 50%, rgba(244,63,94,0.15) 0%, transparent 70%)'
-                ]
-              }}
-              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-            />
+            <div className="absolute inset-0 bg-gradient-to-r from-rose-500/10 via-purple-500/10 to-rose-500/10 pointer-events-none" />
             <div className="relative z-10">
               <motion.p 
                 className="text-rose-100 font-semibold text-sm sm:text-base md:text-lg neon-pink"
@@ -828,19 +691,9 @@ export default function App() {
                 animate={{ opacity: 1 }}
                 transition={{ delay: 1.1 }}
               >
-                <motion.div
-                  animate={{ scale: [1, 1.3, 1], rotate: [0, 15, 0] }}
-                  transition={{ duration: 2, repeat: Infinity }}
-                >
-                  <Heart className="w-4 h-4 text-rose-500 glow" fill="currentColor" />
-                </motion.div>
+                <Heart className="w-4 h-4 text-rose-500" fill="currentColor" />
                 E contando... {diasNamoro} dias de pura felicidade!
-                <motion.div
-                  animate={{ scale: [1, 1.3, 1], rotate: [0, -15, 0] }}
-                  transition={{ duration: 2, repeat: Infinity, delay: 1 }}
-                >
-                  <Heart className="w-4 h-4 text-rose-500 glow" fill="currentColor" />
-                </motion.div>
+                <Heart className="w-4 h-4 text-rose-500" fill="currentColor" />
               </motion.p>
             </div>
           </motion.div>
