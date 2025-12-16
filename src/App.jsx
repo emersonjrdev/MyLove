@@ -279,8 +279,16 @@ export default function App() {
                 <MessageCircleHeart className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6" />
               </motion.div>
               <div>
-                <h1 className="text-xl sm:text-2xl md:text-3xl font-bold tracking-tight text-gradient-futuristic neon-pink">
-                  Para <span className="neon-pink">{nome}</span>
+                <h1 className="text-xl sm:text-2xl md:text-3xl font-bold tracking-tight" style={{ 
+                  color: '#f43f5e', 
+                  textShadow: '0 0 10px rgba(244, 63, 94, 1), 0 0 20px rgba(244, 63, 94, 0.8), 0 0 30px rgba(244, 63, 94, 0.5)',
+                  WebkitTextStroke: '0.5px rgba(244, 63, 94, 0.3)'
+                }}>
+                  Para <span style={{ 
+                    color: '#ff6b9d', 
+                    textShadow: '0 0 15px rgba(255, 107, 157, 1), 0 0 25px rgba(255, 107, 157, 0.8), 0 0 35px rgba(255, 107, 157, 0.6)',
+                    fontWeight: '800'
+                  }}>{nome}</span>
                 </h1>
                 <motion.div 
                   className="flex items-center gap-1 mt-1"
@@ -288,8 +296,8 @@ export default function App() {
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.4 }}
                 >
-                  <Sparkles className="w-3 h-3 text-rose-400" />
-                  <span className="text-xs text-rose-400/80 neon-pink" style={{ fontSize: '0.7rem' }}>Feito com muito amor</span>
+                  <Sparkles className="w-3 h-3 text-rose-400" style={{ filter: 'drop-shadow(0 0 4px rgba(244, 63, 94, 0.8))' }} />
+                  <span className="text-xs" style={{ color: '#f43f5e', fontSize: '0.7rem', opacity: 1, textShadow: '0 0 5px rgba(244, 63, 94, 0.6)' }}>Feito com muito amor</span>
                 </motion.div>
               </div>
             </div>
