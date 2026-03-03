@@ -7,15 +7,18 @@ export default {
   darkMode: 'class',
   theme: {
     extend: {
-      animation: {
-        'float': 'float 6s ease-in-out infinite',
+      colors: {
+        "rose-cream": "var(--rose-cream)",
+        "rose-blush": "var(--rose-blush)",
+        "rose-soft": "var(--rose-soft)",
+        "rose-main": "var(--rose-main)",
+        "rose-wine": "var(--wine-main)",
+        "wine-dark": "var(--wine-dark)",
       },
-      keyframes: {
-        float: {
-          '0%, 100%': { transform: 'translateY(0) rotate(0deg)' },
-          '50%': { transform: 'translateY(-20px) rotate(10deg)' },
-        }
-      }
+      fontFamily: {
+        sans: ['Inter', 'system-ui', 'sans-serif'],
+        romantic: ['"Playfair Display"', 'Georgia', 'serif'],
+      },
     },
   },
   plugins: [],

@@ -1,0 +1,75 @@
+:root {
+  --rose-cream: #fff8f5;
+  --rose-blush: #f9dfe7;
+  --rose-soft: #efb5c8;
+  --rose-main: #c46a8a;
+  --wine-main: #6d2f45;
+  --wine-dark: #3f1f2d;
+  --card-bg: rgba(255, 255, 255, 0.72);
+  --card-border: rgba(196, 106, 138, 0.22);
+  --shadow-soft: 0 10px 28px rgba(109, 47, 69, 0.14);
+  --shadow-strong: 0 18px 50px rgba(109, 47, 69, 0.2);
+}
+
+.dark {
+  --rose-cream: #150f13;
+  --rose-blush: #281821;
+  --rose-soft: #8a4f66;
+  --rose-main: #d88aa6;
+  --wine-main: #f5dfe8;
+  --wine-dark: #fff3f8;
+  --card-bg: rgba(34, 20, 29, 0.68);
+  --card-border: rgba(216, 138, 166, 0.28);
+  --shadow-soft: 0 10px 28px rgba(0, 0, 0, 0.32);
+  --shadow-strong: 0 18px 50px rgba(0, 0, 0, 0.42);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: radial-gradient(circle at top, var(--rose-blush), var(--rose-cream) 48%, var(--rose-cream));
+  color: var(--wine-main);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+.font-romantic {
+  font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+}
+
+.glass-romantic {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  box-shadow: var(--shadow-soft);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.section-title {
+  font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+  color: var(--wine-dark);
+  letter-spacing: 0.01em;
+}
+
+.focus-ring {
+  outline: none;
+}
+
+.focus-ring:focus-visible {
+  box-shadow: 0 0 0 3px rgba(196, 106, 138, 0.28), 0 0 0 6px rgba(255, 255, 255, 0.45);
+}
