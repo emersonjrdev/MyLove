@@ -24,7 +24,7 @@ export default function SurpriseModal({
     <Modal
       isOpen={isOpen}
       onClose={onClose}
-      title="Surpresa para voce"
+      title="Surpresa para você"
       labelledBy="surprise-title"
       describedBy="surprise-body"
     >

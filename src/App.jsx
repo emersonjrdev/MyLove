@@ -30,8 +30,8 @@ import timeline from "./data/timeline";
 
 const nome = "meu amor";
 const mensagem =
-  "Em teus olhos encontrei meu lar,\nOnde posso sempre descansar.\nCada momento ao teu lado e especial,\nEs a razao do meu bem-estar.";
-const autor = "— Para toda a eternidade, seu amor";
+  "Nos teus olhos encontrei meu lar,\nOnde posso sempre descansar.\nCada momento ao teu lado é especial,\nÉs a razão do meu bem-estar.";
+const autor = "— Para a mulher da minha vida, com todo o meu amor";
 const videoPath = "/Te Vivo.mp4";
 const dataInicioNamoro = new Date(2025, 7, 14);
 
@@ -45,11 +45,11 @@ const fotosPadrao = [
 ];
 
 const motivos = [
-  "Voce e a pessoa mais especial da minha vida",
+  "Você é a pessoa mais especial da minha vida",
   "Seu sorriso ilumina meus dias",
-  "Seu abraco e meu lugar favorito",
-  "Voce me faz querer ser uma pessoa melhor",
-  "Cada dia ao seu lado e um presente",
+  "Seu abraço é meu lugar favorito",
+  "Você me faz querer ser um homem melhor",
+  "Cada dia ao seu lado é um presente",
 ];
 
 export default function App() {
@@ -251,7 +251,7 @@ export default function App() {
               </div>
             ) : (
               <p className="text-sm text-rose-wine/80">
-                Nenhuma foto adicionada ainda. As fotos ficam apenas nesta sessao (sem armazenamento local).
+                Nenhuma foto adicionada ainda. As fotos ficam apenas nesta sessão (sem armazenamento local).
               </p>
             )}
           </Card>
@@ -299,7 +299,7 @@ export default function App() {
               <div className="absolute inset-0 bg-gradient-to-t from-black/55 to-transparent" />
               <div className="absolute bottom-3 left-3 right-3 rounded-xl bg-black/25 p-3 text-center text-white">
                 <p className="font-semibold">Eu te amo, {nome.split(" ")[0]} ❤️</p>
-                <p className="text-xs">A cada segundo com voce, tudo vale a pena.</p>
+                <p className="text-xs">A cada segundo com você, tudo vale a pena.</p>
               </div>
               {fotos.length > 1 && (
                 <>
@@ -349,7 +349,7 @@ export default function App() {
         <div className="mt-5 flex flex-wrap items-center gap-3">
           <Button type="button" onClick={() => setSurpriseOpen(true)}>
             <Sparkles size={15} />
-            <span className="ms-1">Botao surpresa</span>
+            <span className="ms-1">Botão surpresa</span>
           </Button>
           <div className="relative">
             <Button
@@ -387,8 +387,8 @@ export default function App() {
       >
         <Timeline items={timeline} />
         <Card>
-          <h3 className="section-title mb-3 text-2xl font-semibold">Nossa musica especial</h3>
-          <p className="mb-3 text-sm text-rose-wine/85">Para voce, com todo meu amor.</p>
+          <h3 className="section-title mb-3 text-2xl font-semibold">Nossa música especial</h3>
+          <p className="mb-3 text-sm text-rose-wine/85">Para você, com todo o meu amor.</p>
           <div className="overflow-hidden rounded-2xl border border-rose-main/20">
             <video
               src={videoPath}
@@ -399,12 +399,12 @@ export default function App() {
               preload="metadata"
               className="aspect-video w-full object-cover"
             >
-              Seu navegador nao suporta video.
+              Seu navegador não suporta vídeo.
             </video>
           </div>
           <div className="mt-3 inline-flex items-center gap-2 rounded-full bg-rose-main/15 px-3 py-1 text-xs text-rose-wine">
             <Music size={13} />
-            Tocando nossa historia
+            Tocando nossa história
           </div>
         </Card>
       </section>
@@ -421,7 +421,7 @@ export default function App() {
         <p className="font-romantic text-2xl text-wine-dark sm:text-3xl">
           Obrigado por existir na minha vida.
         </p>
-        <p className="mt-2 text-sm text-rose-wine/90">Cada dia ao seu lado e um presente. ❤️</p>
+        <p className="mt-2 text-sm text-rose-wine/90">Cada dia ao seu lado é um presente. ❤️</p>
         <p className="mt-2 text-xs text-rose-wine/80">
           Continuamos contando: {loveCounter.days} dias de pura felicidade.
         </p>

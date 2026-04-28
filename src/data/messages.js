@@ -1,10 +1,10 @@
 const messages = [
-  "Te amar e a parte mais bonita dos meus dias.",
+  "Te amar é a parte mais bonita dos meus dias.",
   "Seu sorriso continua sendo meu lugar favorito no mundo.",
-  "Com voce, o simples vira inesquecivel.",
-  "Obrigada por existir e deixar tudo mais leve e lindo.",
-  "Em qualquer plano de futuro, voce e meu detalhe preferido.",
-  "Nosso amor e meu abraco mais seguro.",
+  "Com você, o simples vira inesquecível.",
+  "Obrigado por existir e deixar tudo mais leve e lindo para mim.",
+  "Em qualquer plano de futuro, você é o meu detalhe preferido.",
+  "Nosso amor é o meu abraço mais seguro.",
 ];
 
 export default messages;
